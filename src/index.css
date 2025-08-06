@@ -8,26 +8,39 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 200 100% 95%;
+    --foreground: 200 30% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 190 60% 98%;
+    --card-foreground: 200 30% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 190 60% 98%;
+    --popover-foreground: 200 30% 15%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 180 100% 25%;
+    --primary-foreground: 180 30% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 190 50% 85%;
+    --secondary-foreground: 200 30% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 190 40% 90%;
+    --muted-foreground: 200 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 320 100% 75%;
+    --accent-foreground: 200 30% 15%;
+
+    /* Game-specific colors */
+    --ocean-deep: 200 100% 20%;
+    --ocean-mid: 190 80% 40%;
+    --ocean-light: 180 60% 70%;
+    --coral-pink: 320 100% 75%;
+    --coral-orange: 25 100% 65%;
+    --seaweed-green: 120 40% 45%;
+    
+    /* Gradients */
+    --gradient-ocean: linear-gradient(180deg, hsl(180 60% 70%), hsl(190 80% 40%), hsl(200 100% 20%));
+    --gradient-coral: linear-gradient(135deg, hsl(320 100% 75%), hsl(25 100% 65%));
+    --gradient-bubble: radial-gradient(circle, hsl(180 60% 90% / 0.8), hsl(180 60% 70% / 0.4));
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
