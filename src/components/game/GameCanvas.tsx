@@ -129,6 +129,10 @@ export const GameCanvas = () => {
       ctx.drawImage(images.background, bgX2, 0, bgWidth, GAME_HEIGHT);
     }
 
+    // Draw ground
+    ctx.fillStyle = 'hsl(var(--seaweed-green))';
+    ctx.fillRect(0, GROUND_Y, GAME_WIDTH, GAME_HEIGHT - GROUND_Y);
+
     // Update player physics
     setPlayer(prevPlayer => {
       let newPlayer = { ...prevPlayer };
@@ -159,6 +163,19 @@ export const GameCanvas = () => {
       return newPlayer;
     });
 
+    // Draw player (axolotl)
+    if (images.axolotl) {
+      ctx.drawImage(images.axolotl, player.x, player.y, player.width, player.height);
+    } else {
+      // Fallback rectangle - pink axolotl color
+      ctx.fillStyle = '#ff69b4';
+      ctx.fillRect(player.x, player.y, player.width, player.height);
+      // Add simple eyes
+      ctx.fillStyle = '#000';
+      ctx.fillRect(player.x + 10, player.y + 10, 8, 8);
+      ctx.fillRect(player.x + 25, player.y + 10, 8, 8);
+    }
+
     // Update obstacles
     setObstacles(prevObstacles => {
       return prevObstacles
@@ -166,10 +183,45 @@ export const GameCanvas = () => {
         .filter(obstacle => obstacle.x > -obstacle.width);
     });
 
-    // Spawn new obstacles
+    // Draw obstacles and check collisions
+    obstacles.forEach(obstacle => {
+      if (images.coral) {
+        ctx.drawImage(images.coral, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+      } else {
+        // Fallback rectangle
+        ctx.fillStyle = '#ff4444';
+        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
+      }
+
+      // Check collision with smaller hitbox for better gameplay
+      const playerHitbox = {
+        x: player.x + 5,
+        y: player.y + 5,
+        width: player.width - 10,
+        height: player.height - 10
+      };
+      
+      const obstacleHitbox = {
+        x: obstacle.x + 5,
+        y: obstacle.y + 5,
+        width: obstacle.width - 10,
+        height: obstacle.height - 10
+      };
+
+      if (checkCollision(playerHitbox, obstacleHitbox)) {
+        setGameState('gameOver');
+        toast({
+          title: "Game Over!",
+          description: `Score: ${Math.floor(score / 10)}`,
+          duration: 3000,
+        });
+      }
+    });
+
+    // Spawn new obstacles less frequently
     setObstacles(prevObstacles => {
       const lastObstacle = prevObstacles[prevObstacles.length - 1];
-      if (!lastObstacle || lastObstacle.x < GAME_WIDTH - 200) {
+      if (!lastObstacle || lastObstacle.x < GAME_WIDTH - 300) {
         const newObstacle: Obstacle = {
           x: GAME_WIDTH,
           y: GROUND_Y - 80,
@@ -184,52 +236,12 @@ export const GameCanvas = () => {
     // Update background position
     setBackgroundX(prev => prev - 1);
 
-    // Update score
+    // Update score more slowly
     setScore(prev => prev + 1);
 
     animationFrameRef.current = requestAnimationFrame(gameLoop);
-  }, [gameState, images, backgroundX]);
+  }, [gameState, images, backgroundX, player, obstacles, score, toast]);
 
-  // Draw game objects
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas?.getContext('2d');
-    if (!canvas || !ctx || gameState !== 'playing') return;
-
-    // Draw player
-    if (images.axolotl) {
-      ctx.drawImage(images.axolotl, player.x, player.y, player.width, player.height);
-    } else {
-      // Fallback rectangle
-      ctx.fillStyle = '#ff69b4';
-      ctx.fillRect(player.x, player.y, player.width, player.height);
-    }
-
-    // Draw obstacles
-    obstacles.forEach(obstacle => {
-      if (images.coral) {
-        ctx.drawImage(images.coral, obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-      } else {
-        // Fallback rectangle
-        ctx.fillStyle = '#ff4444';
-        ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height);
-      }
-
-      // Check collision
-      if (checkCollision(player, obstacle)) {
-        setGameState('gameOver');
-        toast({
-          title: "Game Over!",
-          description: `Score: ${score}`,
-          duration: 3000,
-        });
-      }
-    });
-
-    // Draw ground
-    ctx.fillStyle = 'hsl(var(--seaweed-green))';
-    ctx.fillRect(0, GROUND_Y, GAME_WIDTH, GAME_HEIGHT - GROUND_Y);
-  }, [player, obstacles, score, gameState, images, toast]);
 
   // Start game loop
   useEffect(() => {
