@@ -1,5 +1,32 @@
 # Welcome to your Lovable project
 
+<!-- run-steps:start -->
+## Run it locally, step by step
+
+1. **Install [Node.js](https://nodejs.org) 22** or newer.
+
+2. **Get the code:**
+
+   ```sh
+   git clone https://github.com/Gitguy268/axolotl-aqua-adventure.git
+   cd axolotl-aqua-adventure
+   ```
+
+3. **Install the dependencies:**
+
+   ```sh
+   npm install
+   ```
+
+4. **Start it:**
+
+   ```sh
+   npm run dev
+   ```
+
+5. **Open <http://localhost:8080/>** in your browser. Press `Ctrl+C` in the terminal to stop.
+<!-- run-steps:end -->
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/03a40b10-5727-4dfc-8bfb-9e718a8f1349
