@@ -1,5 +1,9 @@
 # Welcome to your Lovable project
 
+<!-- live-links -->
+**Live:** [gitguy268.github.io/axolotl-aqua-adventure](https://gitguy268.github.io/axolotl-aqua-adventure/) · [axolotl-aqua-adventure.vercel.app](https://axolotl-aqua-adventure.vercel.app)
+<!-- /live-links -->
+
 <!-- run-steps:start -->
 ## Run it locally, step by step
 
