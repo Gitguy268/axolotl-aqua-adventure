@@ -1,4 +1,6 @@
-# Welcome to your Lovable project
+# Axolotl Aqua Adventure
+
+An infinite underwater 2D platformer: guide a cute axolotl past obstacles, in your browser.
 
 <!-- live-links -->
 **Live:** [gitguy268.github.io/axolotl-aqua-adventure](https://gitguy268.github.io/axolotl-aqua-adventure/) · [axolotl-aqua-adventure.vercel.app](https://axolotl-aqua-adventure.vercel.app)
